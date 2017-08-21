@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="UVCE.ME.IEEE.Apps.DeyPosMainApp.UploadPhaseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UVCE.ME.IEEE.Apps.DeyPosMainApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label FontWeight="Bold">Upload And De-duplication</Label>
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0">Here we try to upload file for selected user. If selected file already exists on cloud, in that case we assign the ownership of the file to user</Label>
+            <Button Grid.Row="1" HorizontalAlignment="Left" Padding="5" Margin="0,5" Command="{Binding UploadFileCommand}">Upload File To Cloud</Button>
+            <TextBox Grid.Row="3" IsReadOnly="True" Text="{Binding UploadFileLogs}"></TextBox>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

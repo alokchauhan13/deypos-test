@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="UVCE.ME.IEEE.Apps.DeyPosMainApp.AuthenticatedTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UVCE.ME.IEEE.Apps.DeyPosMainApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Margin="10">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="168*"/>
+            <ColumnDefinition Width="131*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label FontWeight="Bold">Authentication Tree View</Label>
+
+            <Label Grid.Row="1">Create Blocks from the file. After this create Authenticated Tree</Label>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Button Padding="5" Margin="5" Command="{Binding CreateBlockCommand}">Create Blocks</Button>
+                <Button Padding="5" Margin="5" Command="{Binding CreateAuthneticatedTreeCommand}" >Create Authnticated Tree</Button>
+            </StackPanel>
+
+            <Grid Grid.Row="3" Background="Aquamarine">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label>Merkle Authenticated Tree (PreOrder-Display):</Label>
+                        <Label Grid.Row="1">Index, Is Actual Block, Hash</Label>
+                        <Grid Background="AliceBlue" Grid.Row="2">
+                            <TextBox Text="{Binding MerkleTextLog}"></TextBox>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label>Homoomorphic Authenticated Tree</Label>
+                        <Label Grid.Row="1">Index, Leaf nodes, Version, Tag</Label>
+                        <Grid Background="AntiqueWhite"  Grid.Row="2">
+                            <TextBox Text="{Binding HomomorphicTextLog}"></TextBox>
+                        </Grid>
+
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

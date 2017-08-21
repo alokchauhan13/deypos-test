@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="UVCE.ME.IEEE.Apps.DeyPosMainApp.Users.CreateUserInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ctrl="clr-namespace:Common.UI;assembly=Common.UI"
+             xmlns:local="clr-namespace:UVCE.ME.IEEE.Apps.DeyPosMainApp.Users"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500" >
+
+    <UserControl.Resources>
+        <ctrl:BooleanToVisibilityConverter Collapse="True" x:Key="boolToVisibilityConv" />
+    </UserControl.Resources>
+
+    <Grid>
+
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <Grid Visibility="{Binding ShowViewToCreateUser, Converter={StaticResource ResourceKey=boolToVisibilityConv}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="Provide the information to create the user" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="User Name"/>
+                    <TextBox Text="{Binding UserName}" Grid.Column="0" />
+
+                    <Button Grid.Column="1" Command="{Binding CreateUserCommand}" Grid.ColumnSpan="2">Create User</Button>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label>User Name:</Label>
+                <TextBox Grid.Column="1" Text="{Binding UserName}" IsReadOnly="True" IsEnabled="False" ></TextBox>
+
+                <Label Grid.Row="1">SHA-512 Hash:</Label>
+
+                <TextBox  Grid.Row="1" Grid.Column="1" Text="{Binding UserNameHash}" IsReadOnly="True" IsEnabled="False" TextWrapping="Wrap"></TextBox>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

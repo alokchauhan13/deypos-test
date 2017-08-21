@@ -1,0 +1,83 @@
+﻿<Application x:Class="UVCE.ME.IEEE.Apps.DeyPosMainApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UVCE.ME.IEEE.Apps.DeyPosMainApp"
+             xmlns:localUser="clr-namespace:UVCE.ME.IEEE.Apps.DeyPosMainApp.Users"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+
+        <Style TargetType="MenuItem">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+
+        <DataTemplate DataType="{x:Type local:AuthenticatedTreeViewModel}">
+            <local:AuthenticatedTreeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:PreProcessPhaseViewModel}">
+            <local:PreProcessPhaseView/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type local:ProofOfStoragePhaseViewModel}">
+            <local:ProofOfStorageView></local:ProofOfStorageView>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type local:UpdatePhaseViewModel}">
+            <local:UpdatePhaseView></local:UpdatePhaseView>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:UploadPhaseViewModel}">
+            <local:UploadPhaseView></local:UploadPhaseView>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type localUser:UserInfoViewModel}">
+            <localUser:CreateUserInfo></localUser:CreateUserInfo>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:HelpViewModel}">
+            <local:HelpView></local:HelpView>
+        </DataTemplate>
+
+
+
+        <DataTemplate DataType="{x:Type local:HomomorphicExampleViewModel}">
+            <local:HomomorphicExampleView></local:HomomorphicExampleView>
+        </DataTemplate>
+
+    </Application.Resources>
+</Application>
