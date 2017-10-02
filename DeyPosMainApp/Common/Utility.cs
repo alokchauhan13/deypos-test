@@ -11,13 +11,13 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.Common
 {
     public class Utility
     {
-        public static byte[] ComputeHashSum(string fileName)
+        public static byte[] ComputeHashSumForFile(string fileLocation)
         {
-            using (var md5 = SHA256.Create())
+            using (var sha = SHA256.Create())
             {
-                using (var stream = File.OpenRead(fileName))
+                using (var stream = File.OpenRead(fileLocation))
                 {
-                    return md5.ComputeHash(stream);
+                    return sha.ComputeHash(stream);
                 }
             }
         }
@@ -25,7 +25,7 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.Common
 
         public static string ComputeHashAsString(string data)
         {
-            using (var md5 = SHA256.Create())
+            using (var sha = SHA256.Create())
             {
                 using (var stream = new MemoryStream())
                 {
@@ -33,20 +33,23 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.Common
                     writer.Write(data);
                     writer.Flush();
                     stream.Position = 0;
-                    byte[] byteArray = md5.ComputeHash(stream);
-                    return ToHex(byteArray, true);
+                    byte[] byteArray = sha.ComputeHash(stream);
+                    return ToString(byteArray, true);
                 }
             }
         }
 
-        public static string ToHex(byte[] bytes, bool upperCase)
+        public static string ToString(byte[] bytes, bool upperCase)
         {
-            StringBuilder result = new StringBuilder(bytes.Length * 2);
+            return BitConverter.ToString(bytes);
+        }
 
-            for (int i = 0; i < bytes.Length; i++)
-                result.Append(bytes[i].ToString(upperCase ? "X2" : "x2"));
-
-            return result.ToString();
+        public static byte[] ToByteArray(string data)
+        {
+            String[] arr = data.Split('-');
+            byte[] array = new byte[arr.Length];
+            for (int i = 0; i < arr.Length; i++) array[i] = Convert.ToByte(arr[i], 16);
+            return array;
         }
 
         public static void SplitFile(string inputFile, int chunkSize, string path)
