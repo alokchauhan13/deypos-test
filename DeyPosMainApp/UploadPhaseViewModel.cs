@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using UVCE.ME.IEEE.Apps.DeyPosMainApp.Common;
+using UVCE.ME.IEEE.Apps.DeyPosMainApp.Users;
 
 namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
 {
@@ -67,7 +68,7 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
 
                 foreach(var item in ApplicationState.FileManager.DataFiles)
                 {
-                    if (ApplicationState.FileManager.CurrentSelectedFile.FileName == item.FileName)
+                    if (ApplicationState.FileManager.CurrentSelectedFile.CombinedHash == item.CombinedHash)
                     {
                         fileFlound = true;
                     }
@@ -95,14 +96,17 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
                 else
                 {
                     logString.AppendLine("File Not found...Uploading File...");
-                    ApplicationState.FileManager.AddFile(ApplicationState.FileManager.CurrentSelectedFile);
+                    ApplicationState.FileManager.CurrentSelectedFile.Version = 1;
 
-                    if(Directory.Exists(ApplicationState.FileManager.CurrentSelectedFile.CloudLocation) == true)
+                    if (Directory.Exists(ApplicationState.FileManager.CurrentSelectedFile.CloudLocation) == true)
                     {
                         Directory.Delete(ApplicationState.FileManager.CurrentSelectedFile.CloudLocation, true);
                     }
-                    Directory.CreateDirectory(ApplicationState.FileManager.CurrentSelectedFile.CloudLocation);
-                    Utility.SplitFile(ApplicationState.FileManager.CurrentSelectedFile.FileSourcePath, 1024 * 512, ApplicationState.FileManager.CurrentSelectedFile.CloudLocation);
+                    Directory.CreateDirectory(ApplicationState.FileManager.CurrentSelectedFile.LatestVersionCloudLocation);
+                    Utility.SplitFile(ApplicationState.FileManager.CurrentSelectedFile.FileSourcePath, 1024 * 512, 
+                        ApplicationState.FileManager.CurrentSelectedFile.LatestVersionCloudLocation);
+
+                    ApplicationState.FileManager.AddFile(ApplicationState.FileManager.CurrentSelectedFile);
 
                 }
 
@@ -113,8 +117,22 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
                 else
                 {
                     logString.AppendLine("File owner Not found...Adding Owner...");
-                    ApplicationState.FileManager.AddUser(ApplicationState.FileManager.CurrentSelectedFile.FileName,
+                    ApplicationState.FileManager.AddUser(ApplicationState.FileManager.CurrentSelectedFile.CombinedHash,
                                                         ApplicationState.UserManager.CurrentUser);
+
+                    logString.AppendLine("Adding file blocks version information for new user...");
+                    ApplicationState.FileManager.CurrentSelectedFile.UpdateUserFileBlock(ApplicationState.UserManager.CurrentUser,
+                                                                                                    ApplicationState.FileManager.CurrentSelectedFile.FileBlocks.ToList());
+                }
+
+                logString.AppendLine(string.Format("Owner List for file {0}...", ApplicationState.FileManager.CurrentSelectedFile.FileName));
+                foreach (User user in ApplicationState.FileManager.CurrentSelectedFile.Owners)
+                {
+                    logString.AppendLine("\r\n"+ user.Name + ". Following is version and hash for each block");
+                    foreach (var item in ApplicationState.FileManager.CurrentSelectedFile.UserFileBlockMapping[user])
+                    {
+                        logString.AppendLine(item.Index + ":" + item.Version + " : " + item.ContentHash);
+                    }
                 }
 
                 UploadFileLogs = logString.ToString();

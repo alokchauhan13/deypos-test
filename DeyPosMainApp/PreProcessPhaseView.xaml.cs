@@ -24,5 +24,10 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

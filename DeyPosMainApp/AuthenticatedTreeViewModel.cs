@@ -156,18 +156,17 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
         {
             ApplicationState.FileManager.CurrentSelectedFile.FileBlocks.Clear();
 
-            foreach (var item in Directory.GetFiles(directoryName))
+            foreach (var file in Directory.GetFiles(directoryName))
             {
                 try
                 {
-                    FileInfo f = new FileInfo(item);
-                    FileBlock fileBlock = new FileBlock(ApplicationState.FileManager.CurrentSelectedFile.FileContentHashID,
-                                                        ApplicationState.UserManager.CurrentUser.Name,
-                                                        int.Parse(Path.GetFileNameWithoutExtension(item)),
+                    FileInfo f = new FileInfo(file);
+                    FileBlock fileBlock = new FileBlock(ApplicationState.FileManager.CurrentSelectedFile.FileContentHashID,                                                        
+                                                        int.Parse(Path.GetFileNameWithoutExtension(file)),
                                                         f.Length);
 
 
-                    fileBlock.ContentHash = Utility.ToHex(Utility.ComputeHashSum(item),true);
+                    fileBlock.ContentHash = Utility.ToString(Utility.ComputeHashSumForFile(file),true);
 
                     ApplicationState.FileManager.CurrentSelectedFile.FileBlocks.Add(fileBlock);
                 }

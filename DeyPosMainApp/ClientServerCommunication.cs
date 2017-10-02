@@ -50,7 +50,7 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
                 byte[] iv = null;
                 Send(aliceKey, message, out encryptedMessage, out iv);
                // Server.Receive(encryptedMessage, iv);
-                return Utility.ToHex(encryptedMessage,true);
+                return Utility.ToString(encryptedMessage,true);
             }
         }
 

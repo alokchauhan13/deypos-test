@@ -46,7 +46,7 @@
                         <Label>Merkle Authenticated Tree (PreOrder-Display):</Label>
                         <Label Grid.Row="1">Index, Is Actual Block, Hash</Label>
                         <Grid Background="AliceBlue" Grid.Row="2">
-                            <TextBox Text="{Binding MerkleTextLog}"></TextBox>
+                            <TextBox Text="{Binding MerkleTextLog}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"></TextBox>
                         </Grid>
                     </Grid>
 
@@ -60,7 +60,7 @@
                         <Label>Homoomorphic Authenticated Tree</Label>
                         <Label Grid.Row="1">Index, Leaf nodes, Version, Tag</Label>
                         <Grid Background="AntiqueWhite"  Grid.Row="2">
-                            <TextBox Text="{Binding HomomorphicTextLog}"></TextBox>
+                            <TextBox Text="{Binding HomomorphicTextLog}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"></TextBox>
                         </Grid>
 
                     </Grid>

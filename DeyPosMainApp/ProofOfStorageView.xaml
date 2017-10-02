@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UVCE.ME.IEEE.Apps.DeyPosMainApp"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,7 +13,54 @@
         </Grid.RowDefinitions>
 
         <Label FontWeight="Bold">Proof Of Storage</Label>
-        <Grid Grid.Row="1" Background="Aquamarine"></Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label>Select User: </Label>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Users}" DisplayMemberPath="Name"  SelectedValue="{Binding SelectedUser}" Width="150"></ComboBox>
+
+                <Label Grid.Column="2">Select File :</Label>
+                <ComboBox Grid.Column="3" ItemsSource="{Binding Files}" DisplayMemberPath="FileName" SelectedItem="{Binding SelectedFile}"  Width="150"></ComboBox>
+                <Label Grid.Column="4">Comma seprated block indexes. Max Value:</Label>
+                <Label Grid.Column="5" Content="{Binding MaxBlockIndex}"></Label>
+                <TextBox Grid.Column="6" Text="{Binding CommaSepratedBlockIndexes}"></TextBox>
+
+            </Grid>
+            
+
+
+            <Grid Margin="0,5" Grid.Row="2" Background="Aquamarine">
+                <TextBox IsReadOnly="True" Text="{Binding Log}"></TextBox>
+            </Grid>
+            
+            <Grid Grid.Row="3" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button Command="{Binding ExecutePOSCommand}">Execute POS</Button>
+                
+            </Grid>
+            
+        </Grid>
         
     </Grid>
 </UserControl>

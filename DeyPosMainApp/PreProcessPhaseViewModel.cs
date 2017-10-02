@@ -57,20 +57,14 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp
         {
             try
             {
-                ApplicationState.FileManager.CurrentSelectedFile.CheckSumByteArray = Utility.ComputeHashSum(ApplicationState.FileManager.CurrentSelectedFile.FileSourcePath);
-                ApplicationState.FileManager.CurrentSelectedFile.FileContentHashID = Utility.ToHex(ApplicationState.FileManager.CurrentSelectedFile.CheckSumByteArray, true);
+                ApplicationState.FileManager.CurrentSelectedFile.FileContentHashID = Utility.ToString(Utility.ComputeHashSumForFile(ApplicationState.FileManager.CurrentSelectedFile.FileSourcePath), true);
 
-                SHA256Hash = "HEX Values: " + "\r\n";
+                SHA256Hash = "File name hash Value: " + "\r\n";
+                SHA256Hash = SHA256Hash + ApplicationState.FileManager.CurrentSelectedFile.FileNameHashId;
 
+                SHA256Hash = SHA256Hash + "\r\n" + "Combined hash File name and created date time :\r\n";
                 SHA256Hash = SHA256Hash + ApplicationState.FileManager.CurrentSelectedFile.CombinedHash;
-
-                SHA256Hash = SHA256Hash + "\r\n" + "Actual Byte Array :";
-
-                foreach (var item in ApplicationState.FileManager.CurrentSelectedFile.CheckSumByteArray)
-                {
-
-                    SHA256Hash = SHA256Hash +  item.ToString() + " ";
-                }
+                
 
             }
             catch (Exception ex)
