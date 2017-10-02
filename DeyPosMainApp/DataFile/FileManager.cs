@@ -43,6 +43,7 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.DataFile
         {
             FileProperties prop = new FileProperties(filePath);
             prop.CloudLocation = this.CloudLocation;
+            // Adding owners of the files.
             prop.Owners.Add(owner);
             return prop;
         }
@@ -63,11 +64,11 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.DataFile
             return false;
         }
 
-        private bool IsFileExists(string fileName)
+        private bool IsFileExists(string fileHash)
         {
             foreach (var item in this.DataFiles)
             {
-                if(item.FileName == fileName)
+                if(item.CombinedHash == fileHash)
                 {
                     return true;
                 }
@@ -76,24 +77,33 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.DataFile
             return false;
         }
 
-        public void AddUser(string fileName, User user)
+        public void AddUser(string fileHash, User user)
         {
-            foreach (var item in this.DataFiles)
+            foreach (FileProperties file in this.DataFiles)
             {
-                if (item.FileName == fileName)
+                if (file.CombinedHash == fileHash)
                 {
-                    item.Owners.Add(user);
+                    bool ownerFound = false;
+                    foreach (var item in file.Owners)
+                    {
+                        if(item.Name == user.Name)
+                        {
+                            ownerFound = true;
+                        }
+                    }
+                    if(ownerFound == false)
+                        file.Owners.Add(user);
                 }
             }
         }
 
-        private FileProperties GetFileProperties(string fileName, string owner)
+        private FileProperties GetFileProperties(string fileHash, string owner)
         {
             foreach (var item in this.DataFiles)
             {
                 foreach (var fileOwner in item.Owners)
                 {
-                    if (fileOwner.Name == owner && item.FileName == fileName)
+                    if (fileOwner.Name == owner && item.CombinedHash == fileHash)
                     {
                         return item;
                     }
@@ -105,7 +115,7 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.DataFile
 
         internal void AddFile(FileProperties file)
         {
-            if(IsFileExists(file.FileName) == false)
+            if(IsFileExists(file.CombinedHash) == false)
             {
                 this.DataFiles.Add(file);
             }

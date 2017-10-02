@@ -8,10 +8,9 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.DataFile
 {
     public class FileBlock
     {
-        public FileBlock(string fileId, string userName, int index, long size)
+        public FileBlock(string fileId, int index, long size)
         {
             FileHashID = fileId;
-            UserName = userName;
             Size = size;
             Index = index;
             Version = 1;
@@ -19,7 +18,7 @@ namespace UVCE.ME.IEEE.Apps.DeyPosMainApp.DataFile
 
         public string FileHashID { get; private set; }
 
-        public int Version { get; private set; }
+        public int Version { get; set; }
 
         public long Size { get; private set; }
 
